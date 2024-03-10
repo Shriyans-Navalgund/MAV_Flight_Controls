@@ -2,10 +2,9 @@
 
 % aircraft_lengths = [2 20 1 6 1.5 1.5 1.5 1.5 4 2 15];
 aircraft_points = def_geom(2, 20, 1, 6, 1.5, 1.5, 1.5, 1.5, 4, 2, 15);
-draw_aircraft(NED_2_XYZ(aircraft_points))
-XYZ_r = rotate(NED_2_XYZ(aircraft_points), 0,45,0);
-XYZ_f = NED_2_XYZ(XYZ_r);
-draw_aircraft(XYZ_f)
+draw_aircraft(aircraft_points)
+NED_r = rotate(aircraft_points', 0,-45,0);
+draw_aircraft(NED_r')
 
 function aircraft_points= def_geom(wing_l, wing_w, tailH_l, tailH_w, tailV_l, tailV_w, fuse_w, fuse_h, fuse_l1, fuse_l2, fuse_l3)
 % Geometry Variables
@@ -25,10 +24,9 @@ aircraft_points = [
             -fuse_l3, -tailH_w/2,0; % Point 13
             -fuse_l3+tailH_l, -tailH_w/2,0; % Point 14
             -fuse_l3+tailV_w, 0, 0; % Point 15
-            -fuse_l3+tailV_w, 0, -tailV_l; % Point 16
+            -fuse_l3, 0, -tailV_l; % Point 16
             ];
 end
-
 
 function draw_aircraft(aircraft_points)
 
@@ -49,41 +47,28 @@ aircraft_faces4 = [
             2 3 4 5; % Nose-Fuselage
             ];
 
-hold on
 patch('Faces', aircraft_faces3,'Vertices', aircraft_points,'FaceColor', 'red')
 patch('Faces', aircraft_faces4,'Vertices', aircraft_points,'FaceColor', 'blue')
-axis equal
+xlabel("X-Label")
+ylabel("Y-Label")
+zlabel("Z-Label")
+set(gca,"ZDir",'reverse')
 grid on
 end
 
-function XYZ = NED_2_XYZ(XYZ)
- 
- R = [
-            -1 0 0;
-            0 -1 0;
-            0 0 1;
-     ];
- XYZ = XYZ*R;
-end
 function XYZ = rotate(XYZ, phi, theta, psi)
-XYZ = XYZ';
-R_roll = [
-            1 0 0;
-            0 cos(phi) -sin(phi);
-            0 -sin(phi) cos(phi);
-            ];
+R_roll = [1 0 0;
+          0 cosd(phi) sind(phi);
+          0 -sind(phi) cosd(phi);];
 
-R_pitch = [
-            cos(theta) 0 -sin(theta);
-            0 1 0;
-            sin(theta) 0 cos(theta);
-            ];
+R_pitch = [cosd(theta) 0 -sind(theta);
+           0 1 0;
+           sind(theta) 0 cosd(theta);];
 
-R_yaw = [
-            cos(psi) sin(psi) 0;
-            -sin(psi) cos(psi) 0;
-            0 0 1;
-            ];
+R_yaw = [cosd(psi) sind(psi) 0;
+         -sind(psi) cosd(psi) 0;
+         0 0 1;];
+
 R = R_roll*R_pitch*R_yaw;
-XYZ = (R*XYZ)';
+XYZ = (R*XYZ);
 end
