@@ -2,9 +2,11 @@
 
 % aircraft_lengths = [2 20 1 6 1.5 1.5 1.5 1.5 4 2 15];
 aircraft_points = def_geom(2, 20, 1, 6, 1.5, 1.5, 1.5, 1.5, 4, 2, 15);
-draw_aircraft(aircraft_points)
-NED_r = rotate(aircraft_points', 0,-45,0);
+%draw_aircraft(aircraft_points)
+NED_r = rotate(aircraft_points', 0,10,0);
 draw_aircraft(NED_r')
+NED_t = translate(NED_r,10,0,0,0,10,0);
+draw_aircraft(NED_t')
 
 function aircraft_points= def_geom(wing_l, wing_w, tailH_l, tailH_w, tailV_l, tailV_w, fuse_w, fuse_h, fuse_l1, fuse_l2, fuse_l3)
 % Geometry Variables
@@ -53,6 +55,7 @@ xlabel("X-Label")
 ylabel("Y-Label")
 zlabel("Z-Label")
 set(gca,"ZDir",'reverse')
+axis equal
 grid on
 end
 
@@ -71,4 +74,9 @@ R_yaw = [cosd(psi) sind(psi) 0;
 
 R = R_roll*R_pitch*R_yaw;
 XYZ = (R*XYZ);
+end
+
+function XYZ = translate(NED, pn,pe,pd,phi, theta, psi)
+move = rotate([pn;pe;pd],phi, theta, psi);
+XYZ = NED + move;
 end
