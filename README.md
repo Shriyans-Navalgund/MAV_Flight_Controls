@@ -9,6 +9,7 @@ The image below shows the description of aircraft dimensions
 
 # Kinematics Dynamics
 This files describes a simulink model which employs aircraft equations of motion.
+
 Inputs:
 1) Forces (Fx, Fy, Fz)
 2) Moments (L, M, N)
