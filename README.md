@@ -14,6 +14,7 @@ Inputs:
 1) Forces (Fx, Fy, Fz)
 2) Moments (L, M, N)
 3) Moment of Inertia (Jx, Jy, Jz, Jxz, Jxy, Jyz)
+
 Outputs:
 1) Aircraft velocity in body frame (U, V, W)
 2) Aircraft position in NED Frame (Pn, Pe, Pd)
