@@ -22,4 +22,9 @@ Outputs:
 4) Aircraft Euler angles (Phi, Theta, Psi)
 5) Aircraft rotation rates (P, Q, R)
 
+Draw Aircraft Functionality added in Simulink block which is taken from Reference Frames Script.
+
 Note: Rotation Matrices are emplyed as Matlab interpreted functions for ease of application over using signals and multiply blocks.
+
+# Kinematics Dynamics Initialise
+MATLAB Script to control Kinematics Dynamics file by assigning variables values to all parameters. Added functionality of plotting and analsying state variables in MATLAB allowing better data analysis operations.
